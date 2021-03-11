@@ -30,40 +30,27 @@ void Game::Update(int deltaTime)
 		{
 			switch (e.key.keysym.sym)
 			{
-			case SDLK_ESCAPE: {
-				_isRunning = false;
-			}
-							break;
-			case SDLK_1: {
-				_couleur = "blanc";
-			}
-					   break;
-			case SDLK_2: {
-				_couleur = "rouge";
-			}
-					   break;
-			case SDLK_3: {
-				_couleur = "vert";
-			}
-					   break;
-			case SDLK_4: {
-				_couleur = "bleu";
-			}
-					   break;
-			case SDLK_9: {
-				_modele = 1;
-			}
-					   break;
-			case SDLK_0: {
-				_modele = 2;
-			}
-					   break;
+			case SDLK_ESCAPE: { _isRunning = false; }
+			break;
+			case SDLK_1 : { if (_currentType >= 4) {_currentType = Particule2White; } else { _currentType = Particule1White; } }
+			break;
+			case SDLK_2 : { if (_currentType >= 4) { _currentType = Particule2Red; } else { _currentType = Particule1Red; } }
+			break;
+			case SDLK_3 : { if (_currentType >= 4) { _currentType = Particule2Green; } else { _currentType = Particule1Green; } }
+			break;
+			case SDLK_4 : { if (_currentType >= 4) { _currentType = Particule2Blue; } else { _currentType = Particule1Blue; } }
+			break;
+			case SDLK_9: { if (_currentType >= 4) { _currentType = (ParticuleType)((int)_currentType - 4); } }
+			break;
+			case SDLK_0: { if (_currentType < 4) { _currentType = (ParticuleType)((int)_currentType + 4); } }
+			break;
 			default:
 				break;
 			}
 		}
 		break;
-		case SDL_MOUSEBUTTONDOWN: {
+		case SDL_MOUSEBUTTONDOWN: 
+		{
 
 			if (e.button.button == 1)
 			{
@@ -95,19 +82,21 @@ void Game::Update(int deltaTime)
 
 void Game::PopulateImageDB()
 {
-	texturesArray = new std::array<SDL_Texture*, 8>();
-	texturesArray->at(0) = SDL_CreateTextureFromSurface(_screenRenderer, IMG_Load(std::string("fireworks/particle1-blanc.png").c_str()));
-	texturesArray->at(1) = SDL_CreateTextureFromSurface(_screenRenderer, IMG_Load(std::string("fireworks/particle1-rouge.png").c_str()));
-	texturesArray->at(2) = SDL_CreateTextureFromSurface(_screenRenderer, IMG_Load(std::string("fireworks/particle1-vert.png").c_str()));
-	texturesArray->at(3) = SDL_CreateTextureFromSurface(_screenRenderer, IMG_Load(std::string("fireworks/particle1-bleu.png").c_str()));
-	texturesArray->at(4) = SDL_CreateTextureFromSurface(_screenRenderer, IMG_Load(std::string("fireworks/particle2-blanc.png").c_str()));
-	texturesArray->at(5) = SDL_CreateTextureFromSurface(_screenRenderer, IMG_Load(std::string("fireworks/particle2-rouge.png").c_str()));
-	texturesArray->at(6) = SDL_CreateTextureFromSurface(_screenRenderer, IMG_Load(std::string("fireworks/particle2-vert.png").c_str()));
-	texturesArray->at(7) = SDL_CreateTextureFromSurface(_screenRenderer, IMG_Load(std::string("fireworks/particle2-bleu.png").c_str()));
+	std::array<SDL_Surface*, 8> tempSurface = std::array<SDL_Surface*, 8>();
+	tempSurface.at(0) = IMG_Load(std::string("fireworks/particle1-blanc.png").c_str());
+	tempSurface.at(1) = IMG_Load(std::string("fireworks/particle1-rouge.png").c_str());
+	tempSurface.at(2) = IMG_Load(std::string("fireworks/particle1-vert.png").c_str());
+	tempSurface.at(3) = IMG_Load(std::string("fireworks/particle1-bleu.png").c_str());
+	tempSurface.at(4) = IMG_Load(std::string("fireworks/particle2-blanc.png").c_str());
+	tempSurface.at(5) = IMG_Load(std::string("fireworks/particle2-rouge.png").c_str());
+	tempSurface.at(6) = IMG_Load(std::string("fireworks/particle2-vert.png").c_str());
+	tempSurface.at(7) = IMG_Load(std::string("fireworks/particle2-bleu.png").c_str());
 
-	if (texturesArray->at(7) != NULL)
+	texturesArray = new std::array<SDL_Texture*, 8>();
+	for (int i = 0; i < 8; ++i)
 	{
-		printf(std::string("Yo tha database is ready!").c_str());
+		texturesArray->at(i) = SDL_CreateTextureFromSurface(_screenRenderer, tempSurface.at(i));
+		SDL_FreeSurface(tempSurface.at(i));
 	}
 }
 
@@ -146,6 +135,17 @@ void Game::CreerGenerateurParticule(int posX, int posY)
 	}
 	Vector _position(posX, posY);
 	auto generateur = new GenerateurParticule();
-	generateur->Init(_screenRenderer, rand() % 20, 20 + rand() % 80, 500 + rand() % 2500, "particle" + std::to_string(_modele), _couleur, rand() % 5, rand() % 15, _position, 16, 64, 100 + rand() % 500, rand() % 90);
+	generateur->Init(
+		rand() % 20
+		, 20 + rand() % 80
+		, 500 + rand() % 2500
+		, _currentType
+		, rand() % 5
+		, rand() % 15
+		, _position
+		, 16
+		, 64
+		, 100 + rand() % 500
+		, rand() % 90);
 	_generateurs.push_back(generateur);
 }

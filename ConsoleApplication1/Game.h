@@ -11,7 +11,7 @@ class IGameEntity;
 class Game
 {
 public:
-	enum ParticuleType
+	static enum ParticuleType
 	{
 		Particule1White,
 		Particule1Red,
@@ -31,7 +31,7 @@ private:
 	SDL_Renderer* _screenRenderer;
 
 public:
-	std::array<SDL_Texture*, 8>* texturesArray;
+	static std::array<SDL_Texture*, 8>* texturesArray;
 	
 
 	Game() = default;
