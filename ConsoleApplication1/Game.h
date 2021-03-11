@@ -11,7 +11,7 @@ class IGameEntity;
 class Game
 {
 public:
-	static enum ParticuleType
+	static enum ParticuleType : int
 	{
 		Particule1White,
 		Particule1Red,
