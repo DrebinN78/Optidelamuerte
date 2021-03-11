@@ -23,54 +23,58 @@ void Game::Update(int deltaTime)
 	SDL_Event e;
 	while (SDL_PollEvent(&e) != 0)
 	{
-		if (e.type == SDL_QUIT)
+		switch (e.type)
 		{
-			_isRunning = false;
-		}
-		else if (e.type == SDL_KEYDOWN)
+		case SDL_QUIT : { _isRunning = false; } break;
+		case SDL_KEYDOWN : 
 		{
 			switch (e.key.keysym.sym)
 			{
 			case SDLK_ESCAPE: {
 				_isRunning = false;
 			}
-							break;
+			break;
 			case SDLK_1: {
 				_couleur = "blanc";
 			}
-					   break;
+			break;
 			case SDLK_2: {
 				_couleur = "rouge";
 			}
-					   break;
+			break;
 			case SDLK_3: {
 				_couleur = "vert";
 			}
-					   break;
+			break;
 			case SDLK_4: {
 				_couleur = "bleu";
 			}
-					   break;
+			break;
 			case SDLK_9: {
 				_modele = 1;
 			}
-					   break;
+			break;
 			case SDLK_0: {
 				_modele = 2;
 			}
-					   break;
+			break;
 			default:
 				break;
 			}
 		}
-		else if (e.type == SDL_MOUSEBUTTONDOWN)
-		{
+		break;
+		case SDL_MOUSEBUTTONDOWN: {
+
 			if (e.button.button == 1)
 			{
 				int mouseX, mouseY;
 				SDL_GetMouseState(&mouseX, &mouseY);
 				CreerGenerateurParticule(mouseX, mouseY);
 			}
+		}
+		break;
+		default:
+			break;
 		}
 	}
 

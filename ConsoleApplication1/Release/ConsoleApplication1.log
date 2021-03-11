@@ -1,2 +1,8 @@
-﻿  ConsoleApplication1.cpp
+﻿  Game.cpp
+E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.cpp(17,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.cpp(83,21): warning C4018: '<': signed/unsigned mismatch
+E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.cpp(101,21): warning C4018: '<': signed/unsigned mismatch
+E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.cpp(110,20): warning C4018: '<': signed/unsigned mismatch
+E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.cpp(130,25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.cpp(130,19): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   ConsoleApplication1.vcxproj -> E:\UnityProjects\Optidelamuerte\Release\fireworks.exe
