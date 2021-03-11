@@ -10,11 +10,11 @@ Game::~Game() = default;
 
 bool Game::Init(SDL_Renderer * screenRenderer)
 {
-	_modele = 1;
-	_couleur = "blanc";
+	_currentType = Particule1White,
 	_isRunning = true;
 	_screenRenderer = screenRenderer;
 	srand(time(NULL));
+	PopulateImageDB();
 	return true;
 }
 
@@ -25,39 +25,39 @@ void Game::Update(int deltaTime)
 	{
 		switch (e.type)
 		{
-		case SDL_QUIT : { _isRunning = false; } break;
-		case SDL_KEYDOWN : 
+		case SDL_QUIT: { _isRunning = false; } break;
+		case SDL_KEYDOWN:
 		{
 			switch (e.key.keysym.sym)
 			{
 			case SDLK_ESCAPE: {
 				_isRunning = false;
 			}
-			break;
+							break;
 			case SDLK_1: {
 				_couleur = "blanc";
 			}
-			break;
+					   break;
 			case SDLK_2: {
 				_couleur = "rouge";
 			}
-			break;
+					   break;
 			case SDLK_3: {
 				_couleur = "vert";
 			}
-			break;
+					   break;
 			case SDLK_4: {
 				_couleur = "bleu";
 			}
-			break;
+					   break;
 			case SDLK_9: {
 				_modele = 1;
 			}
-			break;
+					   break;
 			case SDLK_0: {
 				_modele = 2;
 			}
-			break;
+					   break;
 			default:
 				break;
 			}
@@ -72,7 +72,7 @@ void Game::Update(int deltaTime)
 				CreerGenerateurParticule(mouseX, mouseY);
 			}
 		}
-		break;
+								break;
 		default:
 			break;
 		}
@@ -90,6 +90,24 @@ void Game::Update(int deltaTime)
 				delete generateur;
 			}
 		}
+	}
+}
+
+void Game::PopulateImageDB()
+{
+	texturesArray = new std::array<SDL_Texture*, 8>();
+	texturesArray->at(0) = SDL_CreateTextureFromSurface(_screenRenderer, IMG_Load(std::string("fireworks/particle1-blanc.png").c_str()));
+	texturesArray->at(1) = SDL_CreateTextureFromSurface(_screenRenderer, IMG_Load(std::string("fireworks/particle1-rouge.png").c_str()));
+	texturesArray->at(2) = SDL_CreateTextureFromSurface(_screenRenderer, IMG_Load(std::string("fireworks/particle1-vert.png").c_str()));
+	texturesArray->at(3) = SDL_CreateTextureFromSurface(_screenRenderer, IMG_Load(std::string("fireworks/particle1-bleu.png").c_str()));
+	texturesArray->at(4) = SDL_CreateTextureFromSurface(_screenRenderer, IMG_Load(std::string("fireworks/particle2-blanc.png").c_str()));
+	texturesArray->at(5) = SDL_CreateTextureFromSurface(_screenRenderer, IMG_Load(std::string("fireworks/particle2-rouge.png").c_str()));
+	texturesArray->at(6) = SDL_CreateTextureFromSurface(_screenRenderer, IMG_Load(std::string("fireworks/particle2-vert.png").c_str()));
+	texturesArray->at(7) = SDL_CreateTextureFromSurface(_screenRenderer, IMG_Load(std::string("fireworks/particle2-bleu.png").c_str()));
+
+	if (texturesArray->at(7) != NULL)
+	{
+		printf(std::string("Yo tha database is ready!").c_str());
 	}
 }
 
@@ -113,7 +131,6 @@ void Game::Release()
 	}
 	_generateurs.clear();
 }
-
 
 bool Game::IsRunning()
 {
