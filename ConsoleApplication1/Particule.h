@@ -2,6 +2,7 @@
 #include "Vector.h"
 #include "Sprite.h"
 
+
 class Particule
 {
 public:
@@ -16,7 +17,7 @@ public:
 
 	const float GRAVITE = 980;
 
-	Particule(SDL_Renderer* renderer, std::string _modele, std::string _couleur, int vie, Vector _position, Vector _force, int taille);
+	Particule(int wantedType, int vie, Vector _position, Vector _force, int taille);
 	~Particule();
 
 	void Update(int deltaTime);

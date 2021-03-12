@@ -10,9 +10,7 @@ public:
 	Particule** _liste;
 	int _nbParticulesMax;
 	int _nbParticulesRestantes;
-	std::string _modele;
-	std::string _couleur;
-	SDL_Renderer* _screenRenderer;
+	int _spawnerType;
 	int _vieMin;
 	int _vieMax;
 	Vector _position;
@@ -23,7 +21,7 @@ public:
 
 	~GenerateurParticule();
 
-	void Init(SDL_Renderer* screenRenderer, int nbParticulesDebut, int nbParticulesMax, int nbParticulesTotal, std::string modele, std::string couleur,
+	void Init(int nbParticulesDebut, int nbParticulesMax, int nbParticulesTotal, int wantedType,
 		int vieMin, int vieMax, Vector position, int tailleMin, int tailleMax, int force, int angleMax);
 
 	bool EstActif();

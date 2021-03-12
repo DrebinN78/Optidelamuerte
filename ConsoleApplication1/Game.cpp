@@ -1,3 +1,4 @@
+#pragma once
 #include "Game.h"
 #include <SDL.h>
 #include <iostream>
@@ -6,15 +7,16 @@
 #include <time.h>
 #include "GenerateurParticule.h"
 
+std::array<SDL_Texture*, 8>* Game::_texturesArray = nullptr;
 Game::~Game() = default;
 
 bool Game::Init(SDL_Renderer * screenRenderer)
 {
-	_modele = 1;
-	_couleur = "blanc";
+	_currentType = ParticuleType::Particule1White;
 	_isRunning = true;
 	_screenRenderer = screenRenderer;
 	srand(time(NULL));
+	PopulateImageDB();
 	return true;
 }
 
@@ -25,45 +27,32 @@ void Game::Update(int deltaTime)
 	{
 		switch (e.type)
 		{
-		case SDL_QUIT : { _isRunning = false; } break;
-		case SDL_KEYDOWN : 
+		case SDL_QUIT: { _isRunning = false; } break;
+		case SDL_KEYDOWN:
 		{
 			switch (e.key.keysym.sym)
 			{
-			case SDLK_ESCAPE: {
-				_isRunning = false;
-			}
+			case SDLK_ESCAPE: { _isRunning = false; }
 			break;
-			case SDLK_1: {
-				_couleur = "blanc";
-			}
+			case SDLK_1 : { if ((int)_currentType >= 4) {_currentType = ParticuleType::Particule2White; } else { _currentType = ParticuleType::Particule1White; } }
 			break;
-			case SDLK_2: {
-				_couleur = "rouge";
-			}
+			case SDLK_2 : { if ((int)_currentType >= 4) { _currentType = ParticuleType::Particule2Red; } else { _currentType = ParticuleType::Particule1Red; } }
 			break;
-			case SDLK_3: {
-				_couleur = "vert";
-			}
+			case SDLK_3 : { if ((int)_currentType >= 4) { _currentType = ParticuleType::Particule2Green; } else { _currentType = ParticuleType::Particule1Green; } }
 			break;
-			case SDLK_4: {
-				_couleur = "bleu";
-			}
+			case SDLK_4 : { if ((int)_currentType >= 4) { _currentType = ParticuleType::Particule2Blue; } else { _currentType = ParticuleType::Particule1Blue; } }
 			break;
-			case SDLK_9: {
-				_modele = 1;
-			}
+			case SDLK_9: { if ((int)_currentType >= 4) { _currentType = (ParticuleType)((int)_currentType - 4); } }
 			break;
-			case SDLK_0: {
-				_modele = 2;
-			}
+			case SDLK_0: { if ((int)_currentType < 4) { _currentType = (ParticuleType)((int)_currentType + 4); } }
 			break;
 			default:
 				break;
 			}
 		}
 		break;
-		case SDL_MOUSEBUTTONDOWN: {
+		case SDL_MOUSEBUTTONDOWN: 
+		{
 
 			if (e.button.button == 1)
 			{
@@ -72,7 +61,7 @@ void Game::Update(int deltaTime)
 				CreerGenerateurParticule(mouseX, mouseY);
 			}
 		}
-		break;
+								break;
 		default:
 			break;
 		}
@@ -93,6 +82,26 @@ void Game::Update(int deltaTime)
 	}
 }
 
+void Game::PopulateImageDB()
+{
+	std::array<SDL_Surface*, 8> tempSurface = std::array<SDL_Surface*, 8>();
+	tempSurface.at(0) = IMG_Load(std::string("fireworks/particle1-blanc.png").c_str());
+	tempSurface.at(1) = IMG_Load(std::string("fireworks/particle1-rouge.png").c_str());
+	tempSurface.at(2) = IMG_Load(std::string("fireworks/particle1-vert.png").c_str());
+	tempSurface.at(3) = IMG_Load(std::string("fireworks/particle1-bleu.png").c_str());
+	tempSurface.at(4) = IMG_Load(std::string("fireworks/particle2-blanc.png").c_str());
+	tempSurface.at(5) = IMG_Load(std::string("fireworks/particle2-rouge.png").c_str());
+	tempSurface.at(6) = IMG_Load(std::string("fireworks/particle2-vert.png").c_str());
+	tempSurface.at(7) = IMG_Load(std::string("fireworks/particle2-bleu.png").c_str());
+
+	_texturesArray = new std::array<SDL_Texture*, 8>();
+	for (int i = 0; i < 8; ++i)
+	{
+		_texturesArray->at(i) = SDL_CreateTextureFromSurface(_screenRenderer, tempSurface.at(i));
+		SDL_FreeSurface(tempSurface.at(i));
+	}
+}
+
 void Game::Render(SDL_Renderer * screenRenderer)
 {
 	SDL_RenderClear(screenRenderer);
@@ -107,13 +116,13 @@ void Game::Render(SDL_Renderer * screenRenderer)
 
 void Game::Release()
 {
-	for (int i = 0; i < _generateurs.size(); i++)
-	{
-		delete _generateurs[i];
-	}
 	_generateurs.clear();
+	for (int i = 0; i < 8; ++i)
+	{
+		SDL_DestroyTexture(_texturesArray->at(i));
+	}
+	delete _texturesArray;
 }
-
 
 bool Game::IsRunning()
 {
@@ -129,6 +138,22 @@ void Game::CreerGenerateurParticule(int posX, int posY)
 	}
 	Vector _position(posX, posY);
 	auto generateur = new GenerateurParticule();
-	generateur->Init(_screenRenderer, rand() % 20, 20 + rand() % 80, 500 + rand() % 2500, "particle" + std::to_string(_modele), _couleur, rand() % 5, rand() % 15, _position, 16, 64, 100 + rand() % 500, rand() % 90);
+	generateur->Init(
+		rand() % 20
+		, 20 + rand() % 80
+		, 500 + rand() % 2500
+		, (int)_currentType
+		, rand() % 5
+		, rand() % 15
+		, _position
+		, 16
+		, 64
+		, 100 + rand() % 500
+		, rand() % 90);
 	_generateurs.push_back(generateur);
+}
+
+std::array<SDL_Texture*, 8>* Game::GetTextureArray()
+{
+	return _texturesArray;
 }

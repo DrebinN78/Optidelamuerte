@@ -1,39 +1,20 @@
 #include "Particule.h"
+#include "Game.h"
 #include <SDL_image.h>
 
-Particule::Particule(SDL_Renderer* renderer, std::string _modele, std::string _couleur, int vie, Vector _position, Vector _force, int taille)
+Particule::Particule(int wantedType, int vie, Vector _position, Vector _force, int taille)
 {
 	this->vie = vie * 1000;
 	this->vieActuelle = 0;
 	this->_position = _position;
 	this->_force = _force;
 	this->taille = taille;
-	//Load image at specified path
-	SDL_Texture* spriteImage = nullptr;
-	SDL_Surface* loadedSurface = IMG_Load(("fireworks/" + _modele + "-" + _couleur  + ".png").c_str());
-	if (loadedSurface == NULL)
-	{
-		printf("Unable to load image %s! SDL_image Error: %s\n", ("fireworks/" + _modele + "-" + _couleur + ".png").c_str(), IMG_GetError());
-	}
-	else
-	{
-		//Create texture from surface pixels
-		spriteImage = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-		if (spriteImage == NULL)
-		{
-			printf("Unable to create texture from %s! SDL Error: %s\n", ("fireworks/" + _modele + "-" + _couleur + ".png").c_str(), SDL_GetError());
-		}
-
-		//Get rid of old loaded surface
-		SDL_FreeSurface(loadedSurface);
-	}
-
-	sprite = new Sprite(spriteImage);
+	sprite = new Sprite(Game::GetTextureArray()->at(wantedType));
 }
 
 Particule::~Particule()
 {
-	delete sprite;
+	this->sprite = nullptr;
 }
 
 void Particule::Update(int deltaTime)

@@ -1,23 +1,38 @@
 #pragma once
 #include <SDL_render.h>
+#include <SDL_image.h>
 #include "GenerateurParticule.h"
 #include <string>
+#include <array>
 #include <vector>
 
 class IGameEntity;
 
 class Game
 {
-private:
+public:
+	static enum class ParticuleType : int
+	{
+		Particule1White,
+		Particule1Red,
+		Particule1Green,
+		Particule1Blue,
+		Particule2White,
+		Particule2Red,
+		Particule2Green,
+		Particule2Blue
+	};
 
+private:
+	ParticuleType _currentType;
     bool _isRunning;
-    
 	std::vector<GenerateurParticule*> _generateurs;
-	int _modele;
-	std::string _couleur;
 	SDL_Renderer* _screenRenderer;
+	static std::array<SDL_Texture*, 8>* _texturesArray;
 
 public:
+	
+	
 	Game() = default;
 	~Game();
 	Game(const Game&) = delete;
@@ -25,6 +40,9 @@ public:
 	Game& operator=(const Game&) = delete;
 
 	bool Init(SDL_Renderer* screenRenderer);
+
+	void PopulateImageDB();
+
 	void Release();
 
 	void Update(int deltaTime);
@@ -34,5 +52,7 @@ public:
 	bool IsRunning();
 
 	void CreerGenerateurParticule(int posX, int posY);
+
+	static std::array<SDL_Texture*, 8>* GetTextureArray();
 };
 

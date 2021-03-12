@@ -1,7 +1,8 @@
 #include "Sprite.h"
 #include <SDL.h>
 
-Sprite::Sprite(SDL_Texture* spriteImage): _spriteImage(spriteImage)
+Sprite::Sprite(SDL_Texture* spriteImage): 
+    _spriteImage(spriteImage)
 {
 }
 

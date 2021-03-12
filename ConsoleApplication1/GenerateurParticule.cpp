@@ -1,17 +1,16 @@
 #include "GenerateurParticule.h"
+#include "Game.h"
 
 GenerateurParticule::~GenerateurParticule()
 {
 	delete[] _liste;
 }
 
-void GenerateurParticule::Init(SDL_Renderer* screenRenderer, int nbParticulesDebut, int nbParticulesMax, int nbParticulesTotal, std::string modele, std::string couleur, int vieMin, int vieMax, Vector position, int tailleMin, int tailleMax, int force, int angleMax)
+void GenerateurParticule::Init(int nbParticulesDebut, int nbParticulesMax, int nbParticulesTotal, int wantedType, int vieMin, int vieMax, Vector position, int tailleMin, int tailleMax, int force, int angleMax)
 {
-	this->_screenRenderer = screenRenderer;
 	this->_nbParticulesMax = nbParticulesMax;
 	this->_nbParticulesRestantes = nbParticulesTotal;
-	this->_modele = modele;
-	this->_couleur = couleur;
+	this->_spawnerType = wantedType;
 	this->_vieMin = vieMin;
 	this->_vieMax = vieMax;
 	this->_position = position;
@@ -58,7 +57,7 @@ void GenerateurParticule::AjouterParticule()
 			if (_tailleMin != _tailleMax)
 				taille = _tailleMin + rand() % (_tailleMax - _tailleMin);
 			Vector forceVec(-_force * sin(angle), _force * cos(angle));
-			_liste[i] = new Particule(_screenRenderer, _modele, _couleur, vie, _position, forceVec, taille);
+			_liste[i] = new Particule(_spawnerType, vie, _position, forceVec, taille);
 			return;
 		}
 	}
