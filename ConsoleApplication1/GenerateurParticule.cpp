@@ -6,7 +6,7 @@ GenerateurParticule::~GenerateurParticule()
 	delete[] _liste;
 }
 
-void GenerateurParticule::Init(int nbParticulesDebut, int nbParticulesMax, int nbParticulesTotal, Game::ParticuleType wantedType, int vieMin, int vieMax, Vector position, int tailleMin, int tailleMax, int force, int angleMax)
+void GenerateurParticule::Init(int nbParticulesDebut, int nbParticulesMax, int nbParticulesTotal, int wantedType, int vieMin, int vieMax, Vector position, int tailleMin, int tailleMax, int force, int angleMax)
 {
 	this->_nbParticulesMax = nbParticulesMax;
 	this->_nbParticulesRestantes = nbParticulesTotal;

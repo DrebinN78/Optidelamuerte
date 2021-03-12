@@ -2,7 +2,6 @@
 
 #include "Particule.h"
 #include "Vector.h"
-#include "Game.h"
 
 
 class GenerateurParticule
@@ -11,7 +10,7 @@ public:
 	Particule** _liste;
 	int _nbParticulesMax;
 	int _nbParticulesRestantes;
-	Game::ParticuleType _spawnerType;
+	int _spawnerType;
 	int _vieMin;
 	int _vieMax;
 	Vector _position;
@@ -22,7 +21,7 @@ public:
 
 	~GenerateurParticule();
 
-	void Init(int nbParticulesDebut, int nbParticulesMax, int nbParticulesTotal, Game::ParticuleType wantedType,
+	void Init(int nbParticulesDebut, int nbParticulesMax, int nbParticulesTotal, int wantedType,
 		int vieMin, int vieMax, Vector position, int tailleMin, int tailleMax, int force, int angleMax);
 
 	bool EstActif();

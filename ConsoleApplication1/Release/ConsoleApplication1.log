@@ -1,8 +1,21 @@
-﻿  Game.cpp
-E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.cpp(17,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.cpp(83,21): warning C4018: '<': signed/unsigned mismatch
-E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.cpp(101,21): warning C4018: '<': signed/unsigned mismatch
-E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.cpp(110,20): warning C4018: '<': signed/unsigned mismatch
-E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.cpp(130,25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.cpp(130,19): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+﻿  ConsoleApplication1.cpp
+E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.h(24): warning C4091: 'static ': ignored on left of 'Game::ParticuleType' when no variable is declared
+  Game.cpp
+E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.h(24): warning C4091: 'static ': ignored on left of 'Game::ParticuleType' when no variable is declared
+E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.cpp(18,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.cpp(72,21): warning C4018: '<': signed/unsigned mismatch
+E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.cpp(110,21): warning C4018: '<': signed/unsigned mismatch
+E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.cpp(119,20): warning C4018: '<': signed/unsigned mismatch
+E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.cpp(138,25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.cpp(138,19): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  GenerateurParticule.cpp
+E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.h(24): warning C4091: 'static ': ignored on left of 'Game::ParticuleType' when no variable is declared
+E:\UnityProjects\Optidelamuerte\ConsoleApplication1\GenerateurParticule.cpp(59,49): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+E:\UnityProjects\Optidelamuerte\ConsoleApplication1\GenerateurParticule.cpp(59,28): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Particule.cpp
+E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.h(24): warning C4091: 'static ': ignored on left of 'Game::ParticuleType' when no variable is declared
+E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Particule.cpp(34,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Particule.cpp(43,55): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Particule.cpp(43,42): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Generating Code...
   ConsoleApplication1.vcxproj -> E:\UnityProjects\Optidelamuerte\Release\fireworks.exe

@@ -1,3 +1,4 @@
+#pragma once
 #include "Game.h"
 #include <SDL.h>
 #include <iostream>
@@ -6,11 +7,12 @@
 #include <time.h>
 #include "GenerateurParticule.h"
 
+std::array<SDL_Texture*, 8>* Game::_texturesArray = nullptr;
 Game::~Game() = default;
 
 bool Game::Init(SDL_Renderer * screenRenderer)
 {
-	_currentType = Particule1White,
+	_currentType = ParticuleType::Particule1White;
 	_isRunning = true;
 	_screenRenderer = screenRenderer;
 	srand(time(NULL));
@@ -32,17 +34,17 @@ void Game::Update(int deltaTime)
 			{
 			case SDLK_ESCAPE: { _isRunning = false; }
 			break;
-			case SDLK_1 : { if (_currentType >= 4) {_currentType = Particule2White; } else { _currentType = Particule1White; } }
+			case SDLK_1 : { if ((int)_currentType >= 4) {_currentType = ParticuleType::Particule2White; } else { _currentType = ParticuleType::Particule1White; } }
 			break;
-			case SDLK_2 : { if (_currentType >= 4) { _currentType = Particule2Red; } else { _currentType = Particule1Red; } }
+			case SDLK_2 : { if ((int)_currentType >= 4) { _currentType = ParticuleType::Particule2Red; } else { _currentType = ParticuleType::Particule1Red; } }
 			break;
-			case SDLK_3 : { if (_currentType >= 4) { _currentType = Particule2Green; } else { _currentType = Particule1Green; } }
+			case SDLK_3 : { if ((int)_currentType >= 4) { _currentType = ParticuleType::Particule2Green; } else { _currentType = ParticuleType::Particule1Green; } }
 			break;
-			case SDLK_4 : { if (_currentType >= 4) { _currentType = Particule2Blue; } else { _currentType = Particule1Blue; } }
+			case SDLK_4 : { if ((int)_currentType >= 4) { _currentType = ParticuleType::Particule2Blue; } else { _currentType = ParticuleType::Particule1Blue; } }
 			break;
-			case SDLK_9: { if (_currentType >= 4) { _currentType = (ParticuleType)((int)_currentType - 4); } }
+			case SDLK_9: { if ((int)_currentType >= 4) { _currentType = (ParticuleType)((int)_currentType - 4); } }
 			break;
-			case SDLK_0: { if (_currentType < 4) { _currentType = (ParticuleType)((int)_currentType + 4); } }
+			case SDLK_0: { if ((int)_currentType < 4) { _currentType = (ParticuleType)((int)_currentType + 4); } }
 			break;
 			default:
 				break;
@@ -92,10 +94,10 @@ void Game::PopulateImageDB()
 	tempSurface.at(6) = IMG_Load(std::string("fireworks/particle2-vert.png").c_str());
 	tempSurface.at(7) = IMG_Load(std::string("fireworks/particle2-bleu.png").c_str());
 
-	texturesArray = new std::array<SDL_Texture*, 8>();
+	_texturesArray = new std::array<SDL_Texture*, 8>();
 	for (int i = 0; i < 8; ++i)
 	{
-		texturesArray->at(i) = SDL_CreateTextureFromSurface(_screenRenderer, tempSurface.at(i));
+		_texturesArray->at(i) = SDL_CreateTextureFromSurface(_screenRenderer, tempSurface.at(i));
 		SDL_FreeSurface(tempSurface.at(i));
 	}
 }
@@ -139,7 +141,7 @@ void Game::CreerGenerateurParticule(int posX, int posY)
 		rand() % 20
 		, 20 + rand() % 80
 		, 500 + rand() % 2500
-		, _currentType
+		, (int)_currentType
 		, rand() % 5
 		, rand() % 15
 		, _position
@@ -148,4 +150,9 @@ void Game::CreerGenerateurParticule(int posX, int posY)
 		, 100 + rand() % 500
 		, rand() % 90);
 	_generateurs.push_back(generateur);
+}
+
+std::array<SDL_Texture*, 8>* Game::GetTextureArray()
+{
+	return _texturesArray;
 }

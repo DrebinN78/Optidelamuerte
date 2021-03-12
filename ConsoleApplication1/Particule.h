@@ -1,7 +1,7 @@
 #pragma once
 #include "Vector.h"
 #include "Sprite.h"
-#include "Game.h"
+
 
 class Particule
 {
@@ -17,7 +17,7 @@ public:
 
 	const float GRAVITE = 980;
 
-	Particule(Game::ParticuleType wantedType, int vie, Vector _position, Vector _force, int taille);
+	Particule(int wantedType, int vie, Vector _position, Vector _force, int taille);
 	~Particule();
 
 	void Update(int deltaTime);

@@ -11,7 +11,7 @@ class IGameEntity;
 class Game
 {
 public:
-	static enum ParticuleType : int
+	static enum class ParticuleType : int
 	{
 		Particule1White,
 		Particule1Red,
@@ -24,16 +24,15 @@ public:
 	};
 
 private:
-	
 	ParticuleType _currentType;
     bool _isRunning;
 	std::vector<GenerateurParticule*> _generateurs;
 	SDL_Renderer* _screenRenderer;
+	static std::array<SDL_Texture*, 8>* _texturesArray;
 
 public:
-	static std::array<SDL_Texture*, 8>* texturesArray;
 	
-
+	
 	Game() = default;
 	~Game();
 	Game(const Game&) = delete;
@@ -53,5 +52,7 @@ public:
 	bool IsRunning();
 
 	void CreerGenerateurParticule(int posX, int posY);
+
+	static std::array<SDL_Texture*, 8>* GetTextureArray();
 };
 

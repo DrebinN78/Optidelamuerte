@@ -1,19 +1,20 @@
 #include "Particule.h"
+#include "Game.h"
 #include <SDL_image.h>
 
-Particule::Particule(Game::ParticuleType wantedType, int vie, Vector _position, Vector _force, int taille)
+Particule::Particule(int wantedType, int vie, Vector _position, Vector _force, int taille)
 {
 	this->vie = vie * 1000;
 	this->vieActuelle = 0;
 	this->_position = _position;
 	this->_force = _force;
 	this->taille = taille;
-	sprite = new Sprite(Game::texturesArray->at((int)wantedType));
+	sprite = new Sprite(Game::GetTextureArray()->at(wantedType));
 }
 
 Particule::~Particule()
 {
-	delete sprite;
+	this->sprite = nullptr;
 }
 
 void Particule::Update(int deltaTime)
