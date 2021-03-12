@@ -100,6 +100,7 @@ int main(int argc, char* argv[])
 		}
 
 		SDL_DestroyTexture(fontTexture);
+		game->Release();
 		delete game;
 		delete font;
 	}

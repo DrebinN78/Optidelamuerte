@@ -117,10 +117,11 @@ void Game::Render(SDL_Renderer * screenRenderer)
 void Game::Release()
 {
 	_generateurs.clear();
-	for (const auto& elem : *_texturesArray)
+	for (int i = 0; i < 8; ++i)
 	{
-		delete elem;
+		SDL_DestroyTexture(_texturesArray->at(i));
 	}
+	delete _texturesArray;
 }
 
 bool Game::IsRunning()

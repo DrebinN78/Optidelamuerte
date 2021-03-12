@@ -3,8 +3,6 @@ E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.h(24): warning C4091: '
 E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.cpp(18,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
 E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.cpp(72,21): warning C4018: '<': signed/unsigned mismatch
 E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.cpp(110,21): warning C4018: '<': signed/unsigned mismatch
-E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.cpp(122,14): warning C4150: deletion of pointer to incomplete type 'SDL_Texture'; no destructor called
-E:\UnityProjects\Optidelamuerte\SDL\SDL2-2.0.12\include\SDL_render.h(138): message : see declaration of 'SDL_Texture'
-E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.cpp(138,25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.cpp(138,19): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.cpp(139,25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\UnityProjects\Optidelamuerte\ConsoleApplication1\Game.cpp(139,19): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   ConsoleApplication1.vcxproj -> E:\UnityProjects\Optidelamuerte\Release\fireworks.exe
