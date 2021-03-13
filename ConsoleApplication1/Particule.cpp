@@ -14,7 +14,7 @@ Particule::Particule(int wantedType, int vie, Vector _position, Vector _force, i
 
 Particule::~Particule()
 {
-	this->sprite = nullptr;
+	delete sprite;
 }
 
 void Particule::Update(int deltaTime)

@@ -8,7 +8,7 @@ Sprite::Sprite(SDL_Texture* spriteImage):
 
 Sprite::~Sprite()
 {
-    SDL_DestroyTexture(_spriteImage);
+    _spriteImage = nullptr;
 }
 
 void Sprite::Render(SDL_Renderer* screenRenderer, int posX, int posY, int width, int height, unsigned char alpha)
