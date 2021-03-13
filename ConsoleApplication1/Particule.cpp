@@ -14,17 +14,14 @@ Particule::Particule(int wantedType, int vie, Vector _position, Vector _force, i
 
 Particule::~Particule()
 {
-	this->sprite = nullptr;
+	delete sprite;
 }
 
 void Particule::Update(int deltaTime)
 {
 	vieActuelle += deltaTime;
-	Vector* newPosition = new Vector();
-	newPosition->x = _position.x + _force.x * deltaTime / 1000;
-	newPosition->y = _position.y + _force.y * deltaTime / 1000;
-	_position.x = (*newPosition).x;
-	_position.y = (*newPosition).y;
+	_position.x += _force.x * deltaTime / 1000;
+	_position.y += _force.y * deltaTime / 1000;
 	//gravité
 	_force.y += deltaTime * GRAVITE / 1000;
 	//rebond
